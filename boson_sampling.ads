@@ -40,8 +40,7 @@ package Boson_Sampling is
    -- Pre: Mat must be square.
    function Calculate_Permanent (Mat : Complex_Matrix) return Complex_Number
      with Pre => Mat'Length (1) = Mat'Length (2) and then Mat'Length (1) > 0
-             and then Mat'Length (1) <= 12,
-          Post => True;
+             and then Mat'Length (1) <= 12;
 
    -- Validation helper for interferometer unitary matrices (U*U^dagger = I)
    function Validate_Unitarity (Mat : Complex_Matrix; Tolerance : Real := 1.0E-4) return Boolean
