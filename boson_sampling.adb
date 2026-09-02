@@ -52,12 +52,12 @@ package body Boson_Sampling is
       -- Ryser's algorithm for matrix permanent:
       -- perm(A) = (-1)^n * sum_{X \subseteq {1..n}} (-1)^{|X|} prod_{i=1}^n sum_{j \in X} A_{i,j}
       declare
-         Max_Mask : constant Long_Integer := Shift_Left (1, N) - 1;
+         Max_Mask : constant Integer := 2**N - 1;
       begin
          for Mask in 0 .. Max_Mask loop
             declare
                Bits : Integer := 0;
-               Temp : Long_Integer := Mask;
+               Temp : Integer := Mask;
             begin
                while Temp > 0 loop
                   if (Temp mod 2) = 1 then
@@ -74,7 +74,7 @@ package body Boson_Sampling is
                         Row_Sum : Complex_Number := (Re => 0.0, Im => 0.0);
                      begin
                         for J in 1 .. N loop
-                           if (Shift_Right (Mask, J - 1) mod 2) = 1 then
+                           if (Mask / (2**(J - 1))) mod 2 = 1 then
                               Row_Sum := Add (Row_Sum, Mat (Low1 + I - 1, Low2 + J - 1));
                            end if;
                         end loop;
