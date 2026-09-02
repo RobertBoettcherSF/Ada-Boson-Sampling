@@ -84,6 +84,6 @@ package Boson_Sampling is
    function Estimate_Classical_Simulation_Cost
      (Modes   : Mode_Count;
       Photons : Photon_Count) return Real
-     with Pre => Photons <= Modes;
+     with Pre => Natural (Photons) <= Natural (Modes);
 
 end Boson_Sampling;
