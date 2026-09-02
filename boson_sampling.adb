@@ -41,8 +41,8 @@ package body Boson_Sampling is
 
    function Calculate_Permanent (Mat : Complex_Matrix) return Complex_Number is
       N : constant Integer := Mat'Length (1);
-      Low1 : constant Integer := Mat'Range (1).First;
-      Low2 : constant Integer := Mat'Range (2).First;
+      Low1 : constant Integer := Mat'First (1);
+      Low2 : constant Integer := Mat'First (2);
       Sum_Term : Complex_Number := (Re => 0.0, Im => 0.0);
    begin
       if N = 0 then
@@ -102,8 +102,8 @@ package body Boson_Sampling is
 
    function Validate_Unitarity (Mat : Complex_Matrix; Tolerance : Real := 1.0E-4) return Boolean is
       N : constant Integer := Mat'Length (1);
-      Low1 : constant Integer := Mat'Range (1).First;
-      Low2 : constant Integer := Mat'Range (2).First;
+      Low1 : constant Integer := Mat'First (1);
+      Low2 : constant Integer := Mat'First (2);
    begin
       if N = 0 then
          return False;
@@ -153,10 +153,10 @@ package body Boson_Sampling is
       Output_State   : Photon_Vector) return Complex_Number
    is
       N : constant Integer := Interferometer'Length (1);
-      Low_U1 : constant Integer := Interferometer'Range (1).First;
-      Low_U2 : constant Integer := Interferometer'Range (2).First;
-      Low_In : constant Integer := Input_State'Range.First;
-      Low_Out : constant Integer := Output_State'Range.First;
+      Low_U1 : constant Integer := Interferometer'First (1);
+      Low_U2 : constant Integer := Interferometer'First (2);
+      Low_In : constant Integer := Input_State'First;
+      Low_Out : constant Integer := Output_State'First;
 
       Total_Photons_In : Photon_Count := 0;
       Total_Photons_Out : Photon_Count := 0;
@@ -267,10 +267,8 @@ package body Boson_Sampling is
       Mode_Mask      : Photon_Vector;
       Output_State   : Photon_Vector) return Real
    is
-      Prob : Real := 0.0;
    begin
-      Prob := Standard_Boson_Sampling_Probability (Interferometer, Mode_Mask, Output_State);
-      return Prob;
+      return Standard_Boson_Sampling_Probability (Interferometer, Mode_Mask, Output_State);
    end Scattershot_Boson_Sampling_Probability;
 
    ----------------------------------------------
@@ -281,7 +279,6 @@ package body Boson_Sampling is
      (Modes   : Mode_Count;
       Photons : Photon_Count) return Real
    is
-      P_Val : constant Real := Real (Photons);
       M_Val : constant Real := Real (Modes);
       Scale : Real := 1.0;
    begin
